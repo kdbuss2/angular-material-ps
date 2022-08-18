@@ -28,9 +28,23 @@ export class UserService {
 
   loadAll() {
     const usersUrl = 'https://angular-material-api.azurewebsites.net/users';
-    return this.http.get<User[]>(usersUrl).subscribe(data => { 
-      this.dataStore.users = data;
+    return this.http.get<User[]>(usersUrl).subscribe({
+      next: data => { 
+        this.dataStore.users = data;
+        this._users.next(Object.assign({},this.dataStore).users) 
+      }, 
+      error: err => { 
+        console.log("Failed to fecth users.")
+      }
+    });
+  }
+
+  addUser(user: User): Promise<User> {
+    return new Promise((resolver, reject) => {
+      user.id = this.dataStore.users.length + 1;
+      this.dataStore.users.push(user);
       this._users.next(Object.assign({},this.dataStore).users) 
-    }, error => { console.log("Failed to fecth users.")});
+      resolver(user);
+    })
   }
 }
