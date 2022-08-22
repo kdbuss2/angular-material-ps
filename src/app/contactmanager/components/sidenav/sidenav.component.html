@@ -1,6 +1,7 @@
 
 
-<mat-sidenav-container class="app-sidenav-container">
+<mat-sidenav-container class="app-sidenav-container" 
+    [class.dark-theme]="isDarkTheme" dir="rtl">
     <mat-sidenav #sidenav class="app-sidenav" [opened]="!isScreenSmall" [mode]="isScreenSmall ? 'over' : 'side'"><mat-toolbar color="primary">
         <span>Contacts</span>
       </mat-toolbar>
@@ -11,7 +12,9 @@
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
-    <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+    <app-toolbar 
+      (toggleTheme)="toggleTheme()"
+      (toggleSidenav)="sidenav.toggle()"></app-toolbar>
     <div class="wrapper">
     <router-outlet></router-outlet>
   </div>

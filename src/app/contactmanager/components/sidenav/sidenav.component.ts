@@ -17,6 +17,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 export class SidenavComponent implements OnInit {
 
   users: Observable<User[]> | undefined;
+  isDarkTheme : boolean = false;
 
   constructor(private breakpointObserver : BreakpointObserver, private userService: UserService, private router : Router) {
     
@@ -37,5 +38,9 @@ export class SidenavComponent implements OnInit {
         this.sidenav?.close();
       }
     });
+  }
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
   }
 }
